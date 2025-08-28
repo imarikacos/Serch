@@ -131,7 +131,7 @@ app.get("/search", (req, res) => {
     price: ext.price,
     category: ext.category,
     description: ext.description,
-    status: "Available ✅",
+    status: `Available <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
     priceText: `KSH ${ext.price}/year`,
     savings: ext.category === "Budget" ? `Save KSH ${(1690 - ext.price)}` : null
   }));
@@ -254,24 +254,24 @@ app.get("/", (req, res) => {
   };
   
   res.send(`
-    <h1>🌐 Advanced Domain Search API</h1>
-    <p><strong>✅ Enhanced with individual pricing for ${stats.totalExtensions}+ TLDs</strong></p>
+    <h1><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M8 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Advanced Domain Search API</h1>
+    <p><strong><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Enhanced with individual pricing for ${stats.totalExtensions}+ TLDs</strong></p>
     
-    <h3>📊 API Statistics:</h3>
+    <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2"/><path d="M9 9h6v6h-6z" stroke="currentColor" stroke-width="2"/></svg> API Statistics:</h3>
     <ul>
       <li>Total Extensions: ${stats.totalExtensions}</li>
       <li>Categories: ${stats.categories}</li>
       <li>Price Range: KSH ${stats.priceRange.min} - KSH ${stats.priceRange.max}</li>
     </ul>
     
-    <h3>🔍 API Endpoints:</h3>
+    <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/><path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> API Endpoints:</h3>
     <ul>
       <li><code>GET /search?keyword=example&category=Budget&sort=price-low</code> - Search domains with pricing</li>
       <li><code>GET /categories</code> - Get all pricing categories</li>
       <li><code>GET /extension/com</code> - Get specific extension details</li>
     </ul>
     
-    <h3>💰 Pricing Categories:</h3>
+    <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="12" y1="1" x2="12" y2="23" stroke="currentColor" stroke-width="2"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="2"/></svg> Pricing Categories:</h3>
     <ul>
       <li><strong>Premium (KSH 1,429-11,699):</strong> .com, .net, .org, .io, .ai</li>
       <li><strong>Standard (KSH 1,429-1,949):</strong> .info, .biz, .pro, .name</li>
@@ -284,7 +284,7 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`🚀 Advanced Domain API running on port ${port}`);
-  console.log(`📊 Loaded ${extensions.length} domain extensions with individual pricing`);
-  console.log(`💰 Price range: KSH ${Math.min(...extensions.map(e => e.price))} - KSH ${Math.max(...extensions.map(e => e.price))}`);
+  console.log(`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="10,17 15,12 10,7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="15" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Advanced Domain API running on port ${port}`);
+  console.log(`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2"/><path d="M9 9h6v6h-6z" stroke="currentColor" stroke-width="2"/></svg> Loaded ${extensions.length} domain extensions with individual pricing`);
+  console.log(`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="12" y1="1" x2="12" y2="23" stroke="currentColor" stroke-width="2"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="2"/></svg> Price range: KSH ${Math.min(...extensions.map(e => e.price))} - KSH ${Math.max(...extensions.map(e => e.price))}`);
 });
