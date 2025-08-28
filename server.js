@@ -4,7 +4,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors({
-  origin: "https://dorman.netlify.app"  // ✅ only allow your Netlify frontend
+  origin: "https://gentle-cat-101050.netlify.app"  // ✅ only allow your Netlify frontend
 }));
 
 const extensions = ["com", "net", "org", "co.ke", "ke", "xyz", "shop"];
@@ -22,5 +22,5 @@ app.get("/search", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`✅ Fake domain server running at http://localhost:${port}`);
+  console.log(`domain server running at http://localhost:${port}`);
 });
