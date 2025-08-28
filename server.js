@@ -5,7 +5,7 @@ const port = process.env.PORT || 3000;
 
 // ✅ Allow only your Netlify frontend
 app.use(cors({
-  origin: "https://resplendent-lollipop-6299dd.netlify.app"
+  origin: "https://strong-llama-04eb05.netlify.app"
 }));
 
 // 🔹 Enhanced TLD list with pricing categories and individual prices (KSH)
