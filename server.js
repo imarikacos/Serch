@@ -5,7 +5,7 @@ const port = process.env.PORT || 3000;
 
 // ✅ Allow only your Netlify frontend
 app.use(cors({
-  origin: "https://calm-blini-19cff1.netlify.app"
+  origin: "https://stellar-granita-1a83b2.netlify.app"
 }));
 
 // 🔹 Real Truehost Kenya pricing data (from their official website)
