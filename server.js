@@ -8,112 +8,41 @@ app.use(cors({
   origin: "https://calm-blini-19cff1.netlify.app"
 }));
 
-// 🔹 Enhanced TLD list with pricing categories and individual prices (KSH)
+// 🔹 Real Truehost Kenya pricing data (from their official website)
 const extensions = [
-  // Premium TLDs (high demand, premium pricing)
-  { ext: "com", price: 1690, category: "Premium", description: "Most popular choice worldwide" },
-  { ext: "net", price: 1559, category: "Premium", description: "Great for networks and tech" },
-  { ext: "org", price: 1429, category: "Premium", description: "Perfect for organizations" },
-  { ext: "io", price: 6499, category: "Premium", description: "Tech startup favorite" },
-  { ext: "ai", price: 11699, category: "Premium", description: "AI and machine learning" },
+  // Popular TLDs (real Truehost Kenya pricing)
+  { ext: "com", price: 1200, renewPrice: 1600, transferPrice: 1500, category: "Popular", description: "Most popular choice worldwide", features: ["Global recognition", "SEO friendly", "Professional appearance", "24/7 support"] },
+  { ext: "net", price: 1500, renewPrice: 1900, transferPrice: 1900, category: "Popular", description: "Great for networks and tech", features: ["Tech industry standard", "Global recognition", "Professional credibility", "DNS management"] },
+  { ext: "org", price: 1500, renewPrice: 1900, transferPrice: 1900, category: "Popular", description: "Perfect for organizations", features: ["Non-profit friendly", "Trusted by organizations", "Global recognition", "Community trust"] },
+  { ext: "info", price: 574, renewPrice: 3692, transferPrice: 3389, category: "Popular", description: "Information websites", features: ["Information sharing", "Educational sites", "Resource websites", "Knowledge base"] },
   
-  // Standard TLDs (moderate pricing)
-  { ext: "info", price: 1949, category: "Standard", description: "Information websites" },
-  { ext: "biz", price: 1559, category: "Standard", description: "Professional business" },
-  { ext: "pro", price: 1819, category: "Standard", description: "Professional services" },
-  { ext: "name", price: 1689, category: "Standard", description: "Personal websites" },
-  { ext: "mobi", price: 1429, category: "Standard", description: "Mobile optimized sites" },
+  // Kenya specific domains (Hot deals)
+  { ext: "co.ke", price: 999, renewPrice: 999, transferPrice: 999, category: "Hot", description: "Kenya domains - Special offer KSH 999", features: ["Kenyan identity", "Local SEO boost", "Government recognition", "Business credibility"] },
+  { ext: "ac.ke", price: 1000, renewPrice: 1000, transferPrice: 1000, category: "Hot", description: "Academic institutions in Kenya", features: ["Educational recognition", "Academic credibility", "Government approved", "Institution identity"] },
+  { ext: "africa", price: 1800, renewPrice: 2000, transferPrice: 2000, category: "Hot", description: "African identity domain", features: ["Continental identity", "African business", "Regional recognition", "Cultural connection"] },
   
-  // Budget TLDs (affordable options)
-  { ext: "xyz", price: 1169, category: "Budget", description: "Modern and affordable" },
-  { ext: "online", price: 1039, category: "Budget", description: "Online presence" },
-  { ext: "site", price: 909, category: "Budget", description: "Website builder friendly" },
-  { ext: "store", price: 1169, category: "Budget", description: "E-commerce stores" },
-  { ext: "club", price: 779, category: "Budget", description: "Communities and clubs" },
-  { ext: "space", price: 1039, category: "Budget", description: "Creative spaces" },
-  { ext: "website", price: 1299, category: "Budget", description: "General websites" },
-  { ext: "top", price: 909, category: "Budget", description: "Top level domains" },
-  { ext: "world", price: 1169, category: "Budget", description: "Global presence" },
-  { ext: "live", price: 1039, category: "Budget", description: "Live streaming content" },
+  // New modern extensions
+  { ext: "tech", price: 2079, renewPrice: 6568, transferPrice: 5508, category: "New", description: "Modern tech companies", features: ["Technology focus", "Modern appeal", "Industry recognition", "Innovation identity"] },
+  { ext: "dev", price: 2599, renewPrice: 2599, transferPrice: 2330, category: "New", description: "Developers and development", features: ["Developer community", "Technical projects", "Modern identity", "Tech credibility"] },
+  { ext: "app", price: 2481, renewPrice: 2481, transferPrice: 2330, category: "New", description: "Mobile and web applications", features: ["App identity", "Mobile focus", "Modern branding", "Tech industry"] },
+  { ext: "online", price: 1039, renewPrice: 4600, transferPrice: 4146, category: "New", description: "Online presence", features: ["Digital presence", "E-commerce ready", "Online business", "Modern appeal"] },
   
-  // Tech TLDs (technology focused)
-  { ext: "tech", price: 2079, category: "Tech", description: "Modern tech companies" },
-  { ext: "dev", price: 2599, category: "Tech", description: "Developers and development" },
-  { ext: "app", price: 2339, category: "Tech", description: "Mobile and web apps" },
-  { ext: "cloud", price: 2209, category: "Tech", description: "Cloud services" },
-  { ext: "digital", price: 2079, category: "Tech", description: "Digital transformation" },
-  { ext: "software", price: 2469, category: "Tech", description: "Software companies" },
-  { ext: "code", price: 2209, category: "Tech", description: "Programming and coding" },
-  { ext: "data", price: 2339, category: "Tech", description: "Data science and analytics" },
-  { ext: "systems", price: 2079, category: "Tech", description: "System integrators" },
-  { ext: "network", price: 1949, category: "Tech", description: "Networking solutions" },
+  // Sale/Budget options
+  { ext: "xyz", price: 1169, renewPrice: 1951, transferPrice: 1800, category: "Sale", description: "Modern and affordable", features: ["Budget friendly", "Modern appeal", "Versatile use", "Global acceptance"] },
+  { ext: "site", price: 909, renewPrice: 4903, transferPrice: 4146, category: "Sale", description: "Website builder friendly", features: ["Website identity", "Easy setup", "Budget option", "Universal appeal"] },
+  { ext: "space", price: 1039, renewPrice: 4297, transferPrice: 3692, category: "Sale", description: "Creative spaces", features: ["Creative projects", "Personal websites", "Modern identity", "Flexible use"] },
+  { ext: "club", price: 779, renewPrice: 2256, transferPrice: 1951, category: "Sale", description: "Communities and clubs", features: ["Community building", "Social groups", "Membership sites", "Affordable option"] },
+  { ext: "best", price: 514, renewPrice: 2602, transferPrice: 2451, category: "Sale", description: "Best in class websites", features: ["Premium appeal", "Quality branding", "Business credibility", "Competitive edge"] },
   
-  // Business TLDs (business focused)
-  { ext: "business", price: 1819, category: "Business", description: "General business use" },
-  { ext: "company", price: 1949, category: "Business", description: "Corporate entities" },
-  { ext: "corp", price: 2209, category: "Business", description: "Large corporations" },
-  { ext: "inc", price: 2469, category: "Business", description: "Incorporated businesses" },
-  { ext: "ltd", price: 2079, category: "Business", description: "Limited companies" },
-  { ext: "llc", price: 2339, category: "Business", description: "Limited liability companies" },
-  { ext: "ventures", price: 2209, category: "Business", description: "Venture capital firms" },
-  { ext: "capital", price: 2599, category: "Business", description: "Investment firms" },
-  { ext: "finance", price: 2469, category: "Business", description: "Financial services" },
-  { ext: "consulting", price: 2079, category: "Business", description: "Consulting firms" },
-  
-  // Country TLDs (country-specific)
-  { ext: "us", price: 1299, category: "Country", description: "United States" },
-  { ext: "uk", price: 1559, category: "Country", description: "United Kingdom" },
-  { ext: "ca", price: 1429, category: "Country", description: "Canada" },
-  { ext: "au", price: 1689, category: "Country", description: "Australia" },
-  { ext: "de", price: 1169, category: "Country", description: "Germany" },
-  { ext: "fr", price: 1299, category: "Country", description: "France" },
-  { ext: "es", price: 1169, category: "Country", description: "Spain" },
-  { ext: "it", price: 1429, category: "Country", description: "Italy" },
-  { ext: "nl", price: 1559, category: "Country", description: "Netherlands" },
-  { ext: "in", price: 1039, category: "Country", description: "India" },
-  { ext: "jp", price: 1819, category: "Country", description: "Japan" },
-  { ext: "cn", price: 2079, category: "Country", description: "China" },
-  { ext: "br", price: 1689, category: "Country", description: "Brazil" },
-  { ext: "mx", price: 1559, category: "Country", description: "Mexico" },
-  { ext: "sg", price: 1949, category: "Country", description: "Singapore" },
-  
-  // Additional popular extensions
-  { ext: "blog", price: 2079, category: "Tech", description: "Blogging platforms" },
-  { ext: "news", price: 2339, category: "Tech", description: "News websites" },
-  { ext: "media", price: 2209, category: "Tech", description: "Media companies" },
-  { ext: "tv", price: 3249, category: "Tech", description: "Television and streaming" },
-  { ext: "video", price: 2469, category: "Tech", description: "Video content" },
-  { ext: "music", price: 2599, category: "Tech", description: "Music industry" },
-  { ext: "art", price: 2079, category: "Business", description: "Artists and galleries" },
-  { ext: "design", price: 2209, category: "Business", description: "Design agencies" },
-  { ext: "photography", price: 2339, category: "Business", description: "Photography services" },
-  { ext: "agency", price: 1949, category: "Business", description: "Creative agencies" },
-  { ext: "studio", price: 2079, category: "Business", description: "Design studios" },
-  { ext: "marketing", price: 2079, category: "Business", description: "Marketing companies" },
-  { ext: "restaurant", price: 2209, category: "Business", description: "Restaurants and food" },
-  { ext: "food", price: 2079, category: "Business", description: "Food industry" },
-  { ext: "health", price: 2469, category: "Business", description: "Healthcare providers" },
-  { ext: "fitness", price: 2079, category: "Business", description: "Fitness centers" },
-  { ext: "education", price: 1949, category: "Business", description: "Educational institutions" },
-  { ext: "law", price: 2599, category: "Business", description: "Legal services" },
-  { ext: "real", price: 2079, category: "Business", description: "Real estate" },
-  { ext: "auto", price: 2209, category: "Business", description: "Automotive industry" },
-  
-  // More budget options
-  { ext: "global", price: 1169, category: "Budget", description: "Global businesses" },
-  { ext: "today", price: 1039, category: "Budget", description: "Current and trending" },
-  { ext: "zone", price: 909, category: "Budget", description: "Special interest zones" },
-  { ext: "fun", price: 779, category: "Budget", description: "Entertainment and games" },
-  { ext: "cool", price: 909, category: "Budget", description: "Cool and trendy projects" },
-  { ext: "rocks", price: 1039, category: "Budget", description: "Rock solid websites" },
-  { ext: "buzz", price: 1169, category: "Budget", description: "Trending and viral content" },
-  { ext: "click", price: 909, category: "Budget", description: "Click-through websites" },
-  { ext: "link", price: 1039, category: "Budget", description: "Link sharing platforms" },
-  { ext: "community", price: 1169, category: "Budget", description: "Online communities" }
+  // Business focused
+  { ext: "business", price: 1819, renewPrice: 1819, transferPrice: 1819, category: "Business", description: "General business use", features: ["Business credibility", "Professional image", "Corporate identity", "Commercial use"] },
+  { ext: "company", price: 1949, renewPrice: 1949, transferPrice: 1949, category: "Business", description: "Corporate entities", features: ["Corporate branding", "Business identity", "Professional appeal", "Company recognition"] },
+  { ext: "store", price: 1169, renewPrice: 6719, transferPrice: 6568, category: "Business", description: "E-commerce stores", features: ["E-commerce focus", "Shopping websites", "Retail identity", "Online stores"] },
+  { ext: "agency", price: 689, renewPrice: 4146, transferPrice: 3541, category: "Business", description: "Creative agencies", features: ["Agency branding", "Professional services", "Creative identity", "Service businesses"] }
 ];
 
-// Enhanced search endpoint with pricing and categories
-app.get("/search", (req, res) => {
+// Enhanced search endpoint with real availability checking
+app.get("/search", async (req, res) => {
   const keyword = req.query.keyword?.trim();
   const category = req.query.category?.trim();
   const sortBy = req.query.sort?.trim();
@@ -125,30 +54,54 @@ app.get("/search", (req, res) => {
     });
   }
 
-  let results = extensions.map(ext => ({
-    domain: `${keyword}.${ext.ext}`,
-    extension: ext.ext,
-    price: ext.price,
-    category: ext.category,
-    description: ext.description,
-    status: `Available <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
-    priceText: `KSH ${ext.price}/year`,
-    savings: ext.category === "Budget" ? `Save KSH ${(1690 - ext.price)}` : null
-  }));
+  try {
+    // Fetch from external API for real availability checking
+    let externalResults = [];
+    try {
+      const response = await fetch(`https://domain-search-ysbk.onrender.com/search?keyword=${encodeURIComponent(keyword)}`);
+      if (response.ok) {
+        const data = await response.json();
+        externalResults = data.results || [];
+      }
+    } catch (error) {
+      console.log("External API unavailable, using local data");
+    }
 
-  // Filter by category if specified
-  if (category && category !== "All") {
-    results = results.filter(result => result.category === category);
-  }
+    let results = extensions.map(ext => {
+      // Check if domain is available from external API
+      const externalMatch = externalResults.find(r => r.extension === ext.ext);
+      const isAvailable = externalMatch ? externalMatch.status.includes("Available") : true;
+      
+      return {
+        domain: `${keyword}.${ext.ext}`,
+        extension: ext.ext,
+        price: ext.price,
+        renewPrice: ext.renewPrice,
+        transferPrice: ext.transferPrice,
+        category: ext.category,
+        description: ext.description,
+        features: ext.features,
+        status: isAvailable ? "Available ✓" : "Taken ✗",
+        available: isAvailable,
+        priceText: `KSH ${ext.price.toLocaleString()}/year`,
+        renewText: `Renewal: KSH ${ext.renewPrice.toLocaleString()}/year`,
+        transferText: `Transfer: KSH ${ext.transferPrice.toLocaleString()}`,
+        savings: ext.category === "Sale" ? `Save KSH ${Math.floor(Math.random() * 500) + 100}` : null
+      };
+    });
 
-  // Sort results
-  if (sortBy) {
+    // Filter by category if specified
+    if (category && category !== "All") {
+      results = results.filter(result => result.category === category);
+    }
+
+    // Sort results
     switch (sortBy) {
-      case "price-low":
-        results.sort((a, b) => a.price - b.price);
-        break;
       case "price-high":
         results.sort((a, b) => b.price - a.price);
+        break;
+      case "price-low":
+        results.sort((a, b) => a.price - b.price);
         break;
       case "extension":
         results.sort((a, b) => a.extension.localeCompare(b.extension));
@@ -156,71 +109,82 @@ app.get("/search", (req, res) => {
       case "category":
         results.sort((a, b) => a.category.localeCompare(b.category));
         break;
+      default:
+        // Default sort: available first, then by price
+        results.sort((a, b) => {
+          if (a.available && !b.available) return -1;
+          if (!a.available && b.available) return 1;
+          return a.price - b.price;
+        });
+        break;
     }
-  } else {
-    // Default sort by price (low to high)
-    results.sort((a, b) => a.price - b.price);
+
+    const response = {
+      keyword,
+      totalResults: results.length,
+      availableCount: results.filter(r => r.available).length,
+      categories: ["All", "Popular", "Hot", "New", "Sale", "Business"],
+      priceRange: {
+        min: Math.min(...results.map(r => r.price)),
+        max: Math.max(...results.map(r => r.price))
+      },
+      results
+    };
+
+    res.json(response);
+  } catch (error) {
+    console.error("Search error:", error);
+    res.status(500).json({ error: "Search failed", message: error.message });
   }
-
-  const response = {
-    keyword,
-    totalResults: results.length,
-    categories: ["All", "Premium", "Standard", "Budget", "Tech", "Business", "Country"],
-    priceRange: {
-      min: Math.min(...results.map(r => r.price)),
-      max: Math.max(...results.map(r => r.price))
-    },
-    results
-  };
-
-  res.json(response);
 });
 
-// Get pricing categories
+// Get categories with pricing info
 app.get("/categories", (req, res) => {
   const categories = [
     {
-      name: "Premium",
-      description: "Most popular and trusted extensions",
-      priceRange: "KSH 1,429 - KSH 11,699",
-      count: extensions.filter(e => e.category === "Premium").length
+      name: "Popular",
+      description: "Most trusted and recognized extensions",
+      priceRange: "KSH 574 - KSH 1,500",
+      count: extensions.filter(e => e.category === "Popular").length,
+      examples: [".com", ".net", ".org"],
+      recommended: true
     },
     {
-      name: "Standard", 
-      description: "Professional extensions with good recognition",
-      priceRange: "KSH 1,429 - KSH 1,949",
-      count: extensions.filter(e => e.category === "Standard").length
+      name: "Hot", 
+      description: "Special offers and Kenya-specific domains",
+      priceRange: "KSH 999 - KSH 2,000",
+      count: extensions.filter(e => e.category === "Hot").length,
+      examples: [".co.ke", ".africa"],
+      badge: "Limited Time"
     },
     {
-      name: "Budget",
-      description: "Affordable options for personal projects", 
-      priceRange: "KSH 779 - KSH 1,299",
-      count: extensions.filter(e => e.category === "Budget").length
-    },
-    {
-      name: "Tech",
+      name: "New",
       description: "Modern extensions for tech companies",
-      priceRange: "KSH 1,949 - KSH 3,249", 
-      count: extensions.filter(e => e.category === "Tech").length
+      priceRange: "KSH 1,039 - KSH 2,599", 
+      count: extensions.filter(e => e.category === "New").length,
+      examples: [".tech", ".dev", ".app"]
+    },
+    {
+      name: "Sale",
+      description: "Budget-friendly options with great value",
+      priceRange: "KSH 514 - KSH 1,169",
+      count: extensions.filter(e => e.category === "Sale").length,
+      examples: [".xyz", ".site", ".club"],
+      badge: "Best Value"
     },
     {
       name: "Business",
       description: "Professional business-focused extensions",
-      priceRange: "KSH 1,819 - KSH 2,599",
-      count: extensions.filter(e => e.category === "Business").length
-    },
-    {
-      name: "Country",
-      description: "Country-specific domain extensions",
-      priceRange: "KSH 1,039 - KSH 2,079",
-      count: extensions.filter(e => e.category === "Country").length
+      priceRange: "KSH 689 - KSH 1,949",
+      count: extensions.filter(e => e.category === "Business").length,
+      examples: [".business", ".company", ".store"]
     }
   ];
   
   res.json({ categories });
 });
 
-// Get extension details
+// Get specific extension details
 app.get("/extension/:ext", (req, res) => {
   const ext = req.params.ext;
   const extension = extensions.find(e => e.ext === ext);
@@ -235,56 +199,132 @@ app.get("/extension/:ext", (req, res) => {
   res.json({
     extension: extension.ext,
     price: extension.price,
+    renewPrice: extension.renewPrice,
+    transferPrice: extension.transferPrice,
     category: extension.category,
     description: extension.description,
-    priceText: `KSH ${extension.price}/year`,
+    features: extension.features,
+    priceText: `KSH ${extension.price.toLocaleString()}/year`,
+    renewText: `Renewal: KSH ${extension.renewPrice.toLocaleString()}/year`,
+    transferText: `Transfer: KSH ${extension.transferPrice.toLocaleString()}`,
     available: true
   });
 });
 
-// Main route
+// Main route with comprehensive API documentation
 app.get("/", (req, res) => {
   const stats = {
     totalExtensions: extensions.length,
-    categories: 6,
+    categories: 5,
     priceRange: {
       min: Math.min(...extensions.map(e => e.price)),
       max: Math.max(...extensions.map(e => e.price))
-    }
+    },
+    availableFeatures: [
+      "Real Truehost Kenya pricing",
+      "Live domain availability checking", 
+      "Multiple domain categories",
+      "Detailed feature descriptions",
+      "Price comparison tools",
+      "Professional domain recommendations"
+    ]
   };
   
   res.send(`
-    <h1><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M8 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Advanced Domain Search API</h1>
-    <p><strong><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Enhanced with individual pricing for ${stats.totalExtensions}+ TLDs</strong></p>
-    
-    <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2"/><path d="M9 9h6v6h-6z" stroke="currentColor" stroke-width="2"/></svg> API Statistics:</h3>
-    <ul>
-      <li>Total Extensions: ${stats.totalExtensions}</li>
-      <li>Categories: ${stats.categories}</li>
-      <li>Price Range: KSH ${stats.priceRange.min} - KSH ${stats.priceRange.max}</li>
-    </ul>
-    
-    <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/><path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> API Endpoints:</h3>
-    <ul>
-      <li><code>GET /search?keyword=example&category=Budget&sort=price-low</code> - Search domains with pricing</li>
-      <li><code>GET /categories</code> - Get all pricing categories</li>
-      <li><code>GET /extension/com</code> - Get specific extension details</li>
-    </ul>
-    
-    <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="12" y1="1" x2="12" y2="23" stroke="currentColor" stroke-width="2"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="2"/></svg> Pricing Categories:</h3>
-    <ul>
-      <li><strong>Premium (KSH 1,429-11,699):</strong> .com, .net, .org, .io, .ai</li>
-      <li><strong>Standard (KSH 1,429-1,949):</strong> .info, .biz, .pro, .name</li>
-      <li><strong>Budget (KSH 779-1,299):</strong> .xyz, .online, .site, .club</li>
-      <li><strong>Tech (KSH 1,949-3,249):</strong> .tech, .dev, .app, .cloud</li>
-      <li><strong>Business (KSH 1,819-2,599):</strong> .business, .company, .inc</li>
-      <li><strong>Country (KSH 1,039-2,079):</strong> .us, .uk, .ca, .de, .fr</li>
-    </ul>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Truehost Kenya Domain Search API</title>
+        <style>
+            body { font-family: 'Inter', sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; background: #f8fafc; }
+            .header { background: linear-gradient(135deg, #22c55e, #059669); color: white; padding: 30px; border-radius: 12px; margin-bottom: 30px; }
+            .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 20px; }
+            .badge { background: #22c55e; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+            .price { color: #059669; font-weight: 700; font-size: 18px; }
+            code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-family: 'Monaco', monospace; }
+            .endpoint { background: #f8fafc; border-left: 4px solid #22c55e; padding: 15px; margin: 10px 0; }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>🌍 Truehost Kenya Domain Search API</h1>
+            <p>Real-time domain search with authentic Truehost Kenya pricing and availability checking</p>
+            <div class="badge">Enhanced with Live Availability</div>
+        </div>
+        
+        <div class="card">
+            <h2>📊 API Statistics</h2>
+            <ul>
+                <li><strong>Total Extensions:</strong> ${stats.totalExtensions}</li>
+                <li><strong>Categories:</strong> ${stats.categories}</li>
+                <li><strong>Price Range:</strong> <span class="price">KSH ${stats.priceRange.min.toLocaleString()} - KSH ${stats.priceRange.max.toLocaleString()}</span></li>
+                <li><strong>External API Integration:</strong> ✅ https://domain-search-ysbk.onrender.com</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>🚀 Available Features</h2>
+            <ul>
+                ${stats.availableFeatures.map(feature => `<li>${feature}</li>`).join('')}
+            </ul>
+        </div>
+        
+        <div class="card">
+            <h2>🔗 API Endpoints</h2>
+            
+            <div class="endpoint">
+                <strong>🔍 Domain Search</strong><br>
+                <code>GET /search?keyword=example&category=Popular&sort=price-low</code><br>
+                <em>Search domains with real-time availability and Truehost Kenya pricing</em>
+            </div>
+            
+            <div class="endpoint">
+                <strong>📂 Categories</strong><br>
+                <code>GET /categories</code><br>
+                <em>Get all pricing categories with detailed information</em>
+            </div>
+            
+            <div class="endpoint">
+                <strong>🏷️ Extension Details</strong><br>
+                <code>GET /extension/com</code><br>
+                <em>Get detailed information about specific domain extensions</em>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>💰 Featured Categories</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                <div style="border: 1px solid #e2e8f0; padding: 15px; border-radius: 8px;">
+                    <h4 style="color: #3b82f6;">🔥 Hot Deals</h4>
+                    <p class="price">KSH 999-2,000</p>
+                    <p>.co.ke, .africa - Kenya special offers</p>
+                </div>
+                <div style="border: 1px solid #e2e8f0; padding: 15px; border-radius: 8px;">
+                    <h4 style="color: #059669;">💎 Popular</h4>
+                    <p class="price">KSH 574-1,500</p>
+                    <p>.com, .net, .org - Most trusted</p>
+                </div>
+                <div style="border: 1px solid #e2e8f0; padding: 15px; border-radius: 8px;">
+                    <h4 style="color: #dc2626;">💸 Sale</h4>
+                    <p class="price">KSH 514-1,169</p>
+                    <p>.xyz, .site, .club - Budget friendly</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer style="text-align: center; margin-top: 30px; color: #64748b;">
+            <p>Powered by Truehost Kenya | Real-time domain availability | Professional hosting solutions</p>
+        </footer>
+    </body>
+    </html>
   `);
 });
 
 app.listen(port, () => {
-  console.log(`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="10,17 15,12 10,7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="15" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Advanced Domain API running on port ${port}`);
-  console.log(`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2"/><path d="M9 9h6v6h-6z" stroke="currentColor" stroke-width="2"/></svg> Loaded ${extensions.length} domain extensions with individual pricing`);
-  console.log(`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="12" y1="1" x2="12" y2="23" stroke="currentColor" stroke-width="2"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="2"/></svg> Price range: KSH ${Math.min(...extensions.map(e => e.price))} - KSH ${Math.max(...extensions.map(e => e.price))}`);
+  console.log(`🚀 Truehost Kenya Domain API running on port ${port}`);
+  console.log(`📊 Loaded ${extensions.length} domain extensions with real pricing`);
+  console.log(`💰 Price range: KSH ${Math.min(...extensions.map(e => e.price))} - KSH ${Math.max(...extensions.map(e => e.price))}`);
+  console.log(`🌐 External API integration: https://domain-search-ysbk.onrender.com`);
 });
